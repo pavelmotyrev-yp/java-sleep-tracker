@@ -1,6 +1,9 @@
 package ru.yandex.practicum.sleeptracker;
 
 import ru.yandex.practicum.sleeptracker.entity.SleepingSession;
+import ru.yandex.practicum.sleeptracker.exception.FileNotFoundException;
+import ru.yandex.practicum.sleeptracker.exception.InvalidArgumentException;
+import ru.yandex.practicum.sleeptracker.exception.SleepLogParsingException;
 import ru.yandex.practicum.sleeptracker.service.SleepAnalyzer;
 import ru.yandex.practicum.sleeptracker.service.SleepAnalyzersCatalog;
 import ru.yandex.practicum.sleeptracker.service.SleepLogParser;
@@ -34,14 +37,14 @@ public class SleepTrackerApp {
 
     private static void checkArgumentLength(String[] args) {
         if (args.length < 1) {
-            throw new RuntimeException("Error: sleep tracker file is not specified. " +
+            throw new InvalidArgumentException("Error: sleep tracker file is not specified. " +
                     "Run with an argument: java SleepTrackerApp <file path>");
         }
     }
 
     private static void checkFileExists(Path filepath) {
         if (Files.notExists(filepath)) {
-            throw new RuntimeException("File " + filepath + " does not exist");
+            throw new FileNotFoundException("File " + filepath + " does not exist");
         }
     }
 
@@ -49,7 +52,7 @@ public class SleepTrackerApp {
         try {
             return sleepLogParser.parse(filepath);
         } catch (IOException e) {
-            throw new RuntimeException("Error parsing sleep tracker file: " + filepath, e);
+            throw new SleepLogParsingException("Error parsing sleep tracker file: " + filepath);
         }
     }
 }

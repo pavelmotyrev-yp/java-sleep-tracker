@@ -15,6 +15,7 @@ public class SleepAnalyzersCatalog {
         sleepAnalyzers.add(getMaxDurationAnalyzer());
         sleepAnalyzers.add(getAverageDurationAnalyzer());
         sleepAnalyzers.add(getBadQualityAnalyzer());
+        sleepAnalyzers.add(getSleeplessNightAnalyzer());
 
         return sleepAnalyzers;
     }
@@ -98,5 +99,9 @@ public class SleepAnalyzersCatalog {
                         .count();
             }
         };
+    }
+
+    private SleepAnalyzer getSleeplessNightAnalyzer() {
+        return new SleeplessNightAnalyzer();
     }
 }

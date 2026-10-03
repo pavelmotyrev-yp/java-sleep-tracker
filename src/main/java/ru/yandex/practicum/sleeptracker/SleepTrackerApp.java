@@ -13,33 +13,43 @@ import java.util.List;
 public class SleepTrackerApp {
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("Error: sleep tracker file is not specified. " +
-                    "Run with an argument: java SleepTrackerApp <file path>");
-            return;
-        }
-
-        Path filepath = Path.of(args[0]);
-        if (Files.notExists(filepath)) {
-            System.err.println("Error: sleep tracker file does not exist: " + filepath);
-            return;
-        }
-
-        SleepLogParser sleepLogParser = new SleepLogParser();
-        List<SleepingSession> sleepingSessions;
         try {
-            sleepingSessions = sleepLogParser.parse(filepath);
-        } catch (IOException e) {
-            System.err.println("Error: reading file: " + filepath);
-            return;
+            checkArgumentLength(args);
+
+            Path filepath = Path.of(args[0]);
+            checkFileExists(filepath);
+
+            List<SleepingSession> sleepingSessions = getSleepingSessionsFromFile(new SleepLogParser(), filepath);
+
+            List<SleepAnalyzer> sleepAnalyzers = new SleepAnalyzersCatalog().getSleepAnalyzers();
+
+            sleepAnalyzers.forEach(sleepAnalyzer -> {
+                Object result = sleepAnalyzer.analyze(sleepingSessions);
+                System.out.println(sleepAnalyzer.getName() + ": " + result);
+            });
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+    }
 
-        List<SleepAnalyzer> sleepAnalyzers = new SleepAnalyzersCatalog().getSleepAnalyzers();
+    private static void checkArgumentLength(String[] args) {
+        if (args.length < 1) {
+            throw new RuntimeException("Error: sleep tracker file is not specified. " +
+                    "Run with an argument: java SleepTrackerApp <file path>");
+        }
+    }
 
-        sleepAnalyzers.forEach(sleepAnalyzer -> {
-            Object result = sleepAnalyzer.analyze(sleepingSessions);
-            System.out.println(sleepAnalyzer.getName() + ": " + result);
-        });
+    private static void checkFileExists(Path filepath) {
+        if (Files.notExists(filepath)) {
+            throw new RuntimeException("File " + filepath + " does not exist");
+        }
+    }
 
+    private static List<SleepingSession> getSleepingSessionsFromFile(SleepLogParser sleepLogParser, Path filepath) {
+        try {
+            return sleepLogParser.parse(filepath);
+        } catch (IOException e) {
+            throw new RuntimeException("Error parsing sleep tracker file: " + filepath, e);
+        }
     }
 }

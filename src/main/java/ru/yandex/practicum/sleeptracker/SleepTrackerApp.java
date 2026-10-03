@@ -1,6 +1,8 @@
 package ru.yandex.practicum.sleeptracker;
 
 import ru.yandex.practicum.sleeptracker.entity.SleepingSession;
+import ru.yandex.practicum.sleeptracker.service.SleepAnalyzer;
+import ru.yandex.practicum.sleeptracker.service.SleepAnalyzersCatalog;
 import ru.yandex.practicum.sleeptracker.service.SleepLogParser;
 
 import java.io.IOException;
@@ -31,6 +33,13 @@ public class SleepTrackerApp {
             System.err.println("Error: reading file: " + filepath);
             return;
         }
+
+        List<SleepAnalyzer> sleepAnalyzers = new SleepAnalyzersCatalog().getSleepAnalyzers();
+
+        sleepAnalyzers.forEach(sleepAnalyzer -> {
+            Object result = sleepAnalyzer.analyze(sleepingSessions);
+            System.out.println(sleepAnalyzer.getName() + ": " + result);
+        });
 
     }
 }

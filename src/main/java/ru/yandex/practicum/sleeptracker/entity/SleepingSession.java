@@ -17,4 +17,8 @@ public class SleepingSession {
     public long getDurationSleepInMinutes() {
         return Duration.between(sleepStart, sleepEnd).toMinutes();
     }
+
+    public SleepQuality getSleepQuality() {
+        return sleepQuality;
+    }
 }

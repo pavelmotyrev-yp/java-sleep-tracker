@@ -4,8 +4,8 @@ import ru.yandex.practicum.sleeptracker.entity.SleepingSession;
 
 import java.util.List;
 
-public interface SleepAnalyzer<T> {
+public interface SleepAnalyzer {
     String getName();
 
-    T analyze(List<SleepingSession> sessions);
+    Object analyze(List<SleepingSession> sessions);
 }

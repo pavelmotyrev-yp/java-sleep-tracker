@@ -16,6 +16,7 @@ public class SleepAnalyzersCatalog {
         sleepAnalyzers.add(getAverageDurationAnalyzer());
         sleepAnalyzers.add(getBadQualityAnalyzer());
         sleepAnalyzers.add(getSleeplessNightAnalyzer());
+        sleepAnalyzers.add(getChronotypeAnalyzer());
 
         return sleepAnalyzers;
     }
@@ -103,5 +104,9 @@ public class SleepAnalyzersCatalog {
 
     private SleepAnalyzer getSleeplessNightAnalyzer() {
         return new SleeplessNightAnalyzer();
+    }
+
+    private SleepAnalyzer getChronotypeAnalyzer() {
+        return new ChronotypeAnalyzer();
     }
 }

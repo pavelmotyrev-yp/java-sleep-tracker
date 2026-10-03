@@ -8,13 +8,13 @@ public class SleepingSession {
     private final LocalDateTime sleepEnd;
     private final SleepQuality sleepQuality;
 
-    public SleepingSession(LocalDateTime sleepStart, SleepQuality sleepQuality) {
+    public SleepingSession(LocalDateTime sleepStart, LocalDateTime sleepEnd, SleepQuality sleepQuality) {
         this.sleepStart = sleepStart;
-        this.sleepEnd = sleepStart;
+        this.sleepEnd = sleepEnd;
         this.sleepQuality = sleepQuality;
     }
 
-    public long getDurationSleepInMinutes(){
+    public long getDurationSleepInMinutes() {
         return Duration.between(sleepStart, sleepEnd).toMinutes();
     }
 }

@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class SleepLogParser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
 
-    private List<SleepingSession> parse(Path filePath) throws IOException {
+    public List<SleepingSession> parse(Path filePath) throws IOException {
         try (Stream<String> lines = Files.lines(filePath)) {
             return lines
                     .filter(line -> !line.trim().isEmpty())

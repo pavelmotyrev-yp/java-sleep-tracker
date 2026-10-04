@@ -21,7 +21,7 @@ public class SleepAnalyzersCatalog {
         return sleepAnalyzers;
     }
 
-    private SleepAnalyzer getTotalSessionsAnalyzer() {
+    public SleepAnalyzer getTotalSessionsAnalyzer() {
         return new SleepAnalyzer() {
             @Override
             public String getName() {
@@ -35,7 +35,7 @@ public class SleepAnalyzersCatalog {
         };
     }
 
-    private SleepAnalyzer getMinDurationAnalyzer() {
+    public SleepAnalyzer getMinDurationAnalyzer() {
         return new SleepAnalyzer() {
             @Override
             public String getName() {
@@ -52,7 +52,7 @@ public class SleepAnalyzersCatalog {
         };
     }
 
-    private SleepAnalyzer getMaxDurationAnalyzer() {
+    public SleepAnalyzer getMaxDurationAnalyzer() {
         return new SleepAnalyzer() {
             @Override
             public String getName() {
@@ -69,7 +69,7 @@ public class SleepAnalyzersCatalog {
         };
     }
 
-    private SleepAnalyzer getAverageDurationAnalyzer() {
+    public SleepAnalyzer getAverageDurationAnalyzer() {
         return new SleepAnalyzer() {
             @Override
             public String getName() {
@@ -86,7 +86,7 @@ public class SleepAnalyzersCatalog {
         };
     }
 
-    private SleepAnalyzer getBadQualityAnalyzer() {
+    public SleepAnalyzer getBadQualityAnalyzer() {
         return new SleepAnalyzer() {
             @Override
             public String getName() {
@@ -102,11 +102,11 @@ public class SleepAnalyzersCatalog {
         };
     }
 
-    private SleepAnalyzer getSleeplessNightAnalyzer() {
+    public SleepAnalyzer getSleeplessNightAnalyzer() {
         return new SleeplessNightAnalyzer();
     }
 
-    private SleepAnalyzer getChronotypeAnalyzer() {
+    public SleepAnalyzer getChronotypeAnalyzer() {
         return new ChronotypeAnalyzer();
     }
 }
